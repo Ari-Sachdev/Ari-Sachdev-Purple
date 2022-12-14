@@ -16,7 +16,7 @@ public class PlayerControls : MonoBehaviour
         gameController = GetComponent<GameController>();
         Time.timeScale = 1;
         rb = GetComponent<Rigidbody2D>();
-        objectHeight = transform.GetComponent<SpiteRederer>().bounds.size.y / 2;
+        objectHeight = transform.GetComponent<SpriteRenderer>().bounds.size.y / 2;
     }
 
     // Update is called once per frame
