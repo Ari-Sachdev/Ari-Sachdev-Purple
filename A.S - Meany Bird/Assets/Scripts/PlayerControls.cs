@@ -22,10 +22,21 @@ public class PlayerControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(transform.position.y <= -5)
+        {
+            GameObject.Find("GameController").GetComponent<GameController>().GameOver();
+        }
         if (Input.GetMouseButtonDown(0))
         {
             rb.velocity = Vector2.up* velocity;
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "HighSpike" || collision.gameObject.tag == "LowSpike")
+        {
+            GameObject.Find("GameController").GetComponent<GameController>().GameOver();
+        }
+    }
 }

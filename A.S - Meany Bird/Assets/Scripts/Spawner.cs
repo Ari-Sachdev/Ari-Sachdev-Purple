@@ -25,5 +25,6 @@ public class Spawner : MonoBehaviour
     void InstantiateObjects()
     {
         Instantiate(spikes, transform.position, transform.rotation);
+        Debug.Log("spawn spike");
     }
 }
