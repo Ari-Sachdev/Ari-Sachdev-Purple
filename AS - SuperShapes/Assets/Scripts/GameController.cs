@@ -26,8 +26,10 @@ public class GameController : MonoBehaviour
         Instantiate(shapePrefabs[randomInt], Vector3.zero, Quaternion.identity);
     }
 
-    private void GameOver()
+    public void GameOver()
     {
         CancelInvoke("Spawn");
+        gameOverCanvas.SetActive(true);
+        Time.timeScale = 0;
     }
 }
