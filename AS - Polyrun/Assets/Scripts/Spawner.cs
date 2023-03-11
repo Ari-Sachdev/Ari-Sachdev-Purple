@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [Header("ChallengeObj Game Object")]
-    public GameObject challengObject;
+    [Header("ChallengeObj Game Object1")]
+    public GameObject challengObject1;
+
     [Header("Default spawn delay time")]
     public float spawnDelay = 1f;
     [Header("Default spawn time")]
@@ -24,6 +25,7 @@ public class Spawner : MonoBehaviour
 
     void InstantiateObjects()
     {
-        Instantiate(challengObject, transform.position, transform.rotation);
+        Instantiate(challengObject1, transform.position, transform.rotation);
+        
     }
 }

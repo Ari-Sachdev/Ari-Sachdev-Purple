@@ -43,6 +43,11 @@ public class PlayerControls : MonoBehaviour
         {
             isGrounded = true;
         }
+
+        if (collision.collider.tag == "Enemy")
+        {
+            GameOver();
+        }
     }
 
     void OnCollisionStay2D(Collision2D collision)
@@ -63,6 +68,17 @@ public class PlayerControls : MonoBehaviour
 
     void GameOver()
     {
-        Time.timeScale = 0;
+        GameObject.Find("GameController").GetComponent<GameController>().GameOver();
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        Destroy(collision.gameObject);
+
+        if(collision.tag == "Coin")
+        {
+            GameObject.Find("GameController").GetComponent<GameController>().IncrementScore();
+            Destroy(collision.gameObject);
+        }
     }
 }
