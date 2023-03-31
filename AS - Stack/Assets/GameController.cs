@@ -22,14 +22,18 @@ public class GameController : MonoBehaviour
         if(lastCube != null)
         {
             currentCube.transform.position = new Vector3(Mathf.Round(currentCube.transform.position.x), currentCube.transform.position.y, Mathf.Round(currentCube.transform.position.z));
-            currentCube.transform.localScale = new Vector3(lastCube.transform.localScale.x - Mathf.Abs(currentCube.transform.position.x - lastCube.transform.position.x), lastCube.transform.transform.localScale.y, lastCube.transform.position.z - Mathf.Abs(currentCube.transform.position.z - lastCube.transform.position.z));
+            currentCube.transform.localScale = new Vector3(lastCube.transform.localScale.x - Mathf.Abs(currentCube.transform.position.x - lastCube.transform.position.x),
+                lastCube.transform.localScale.y,
+                lastCube.transform.localScale.z - Mathf.Abs(currentCube.transform.position.z - lastCube.transform.position.z));
             currentCube.transform.position = Vector3.Lerp(currentCube.transform.position, lastCube.transform.position, 0.5f) + Vector3.up * 5f;
+
+            text.gameObject.SetActive(true);
+            text.text = "Final Score: " + Level;
 
             if (currentCube.transform.localScale.x <= 0f || currentCube.transform.localScale.z <= 0f)
             {
                 Done = true;
-                text.gameObject.SetActive(true);
-                text.text = "Final Score: " + Level;
+                
                 StartCoroutine(X());
                 return;
             }
@@ -61,15 +65,17 @@ public class GameController : MonoBehaviour
 
         var time = Mathf.Abs(Time.realtimeSinceStartup % 2f - 1f);
         var pos1 = lastCube.transform.position + Vector3.up * 10f;
+        var pos3 = pos1 + ((Level % 2 == 0) ? Vector3.right : Vector3.back) * 120;
         var pos2 = pos1 + ((Level % 2 == 0) ? Vector3.left : Vector3.forward) * 120;
+        // var pos2 = pos1 + (Vector3.left  * 120);
 
         if (Level % 2 == 0)
         {
-            currentCube.transform.position = Vector3.Lerp(pos1, pos2, time);
+            currentCube.transform.position = Vector3.Lerp(pos3, pos2, time);
         }
         else
         {
-            currentCube.transform.position = Vector3.Lerp(pos2, pos1, time);
+            currentCube.transform.position = Vector3.Lerp(pos2, pos3, time);
         }
         if (Input.GetMouseButtonDown(0))
         {
