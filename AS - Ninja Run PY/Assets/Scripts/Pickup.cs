@@ -14,10 +14,8 @@ public class Pickup : MonoBehaviour
     // Update is called once per frame
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("a");
         if (other.gameObject.CompareTag("coin"))
         {
-            Debug.Log("b");
             Destroy(other.gameObject);
             Destroy(Door);
         }
