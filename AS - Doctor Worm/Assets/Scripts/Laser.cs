@@ -42,13 +42,14 @@ public class Laser : MonoBehaviour
         RaycastHit hit;
         //Use the range variable (defined above) to create a maximum length of the line
         endPoint = transform.forward * range;
+        Debug.DrawRay(transform.position,transform.forward * range, Color.blue);
         //If the laser line hits a collider, set that as the new range for the line
         if (Physics.Raycast(transform.position, transform.forward, out hit, range))
         {
             //recalculate the new endpoint
             endPoint = transform.InverseTransformPoint(hit.point);
             //if the object the laser collides with is the player, set up the player death and reset.
-            if (hit.collider == playerCollider && !playerDeath)
+            if (hit.collider.gameObject.tag == "Player" && !playerDeath)
             {
                 playerDeath = true;
                 OnHitPlayer.Invoke();
