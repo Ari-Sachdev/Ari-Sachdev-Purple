@@ -1963,7 +1963,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   yForce: 300
   xForce1: 300
-  xForce: 0
+  xForce2: 0
+  xForce: 300
   xDirection: -1
 --- !u!50 &1163686254
 Rigidbody2D:
@@ -2550,7 +2551,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   yForce: 500
   xForce1: 300
-  xForce: 0
+  xForce2: 0
+  xForce: 300
   xDirection: 1
 --- !u!61 &1604866805
 BoxCollider2D:
