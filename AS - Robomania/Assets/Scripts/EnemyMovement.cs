@@ -15,8 +15,8 @@ public class EnemyMovement : MonoBehaviour
     void EnemySpeed()
     {
         xForce = xForce2;
-        xForce *= 1.5f;
-        if (xForce > 1000)
+        xForce *= 1.3f;
+        if (xForce > 500)
         {
             xForce = xForce1;
         }
@@ -31,7 +31,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Ground")
+        if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Player")
         {
             Vector2 jumpForce = new Vector2(xForce * xDirection, yForce);
             enemyRigidBody.AddForce(jumpForce);
@@ -63,6 +63,10 @@ public class EnemyMovement : MonoBehaviour
         {
             xDirection = -1;
             enemyRigidBody.AddForce(Vector2.left * xForce);
+        }
+        if (transform.position.y >= 4)
+        {
+            enemyRigidBody.AddForce(Vector2.down * yForce);
         }
     }
 }

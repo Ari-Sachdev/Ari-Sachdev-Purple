@@ -14,7 +14,9 @@ public class ProjectileAndAim : MonoBehaviour
 
     // store a reference to the main camera from Start
     private Camera cam;
-    
+
+    public float maxcool;
+    float cool;
 
     void Start()
     {
@@ -22,6 +24,7 @@ public class ProjectileAndAim : MonoBehaviour
         Cursor.visible = false;
         // store the main camera
         cam = Camera.main;
+        maxcool = 0.5f;
     }
 
     // Update is called once per frame
@@ -33,15 +36,21 @@ public class ProjectileAndAim : MonoBehaviour
         // move the crosshairs to the mouse's x and y positions
         crosshairs.transform.position = new Vector3(target.x, target.y, 0);
 
+        cool -= Time.deltaTime;
         // if the user clicks the left mouse button, fire the blaster
         if (Input.GetMouseButtonDown(0))
         {
-            FireBlaster();
+            if(cool <= 0)
+            {
+                FireBlaster();
+            }
+            
         }
     }
 
     void FireBlaster()
     {
+        cool = maxcool;
         // get a vector pointing between the player and the crosshair
         Vector3 playerToCrosshair = crosshairs.transform.position - protonBlaster.transform.position;
 
