@@ -13,6 +13,7 @@ public class EnemyControls : MonoBehaviour
     private Transform target;
     public bool isFollowingTarget;
     public bool isAttackingTarget;
+    public float chasingplayer = 0.01f;
     public float currentAttackingTime;
     public float maxAttackingTime = 2f;
     // Start is called before the first frame update
@@ -36,7 +37,21 @@ public class EnemyControls : MonoBehaviour
         {
             direction = target.position - transform.position;
             direction.y = 0;
+
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 20);
+
+            if (rigidbodyEnemy.velocity.sqrMagnitude != 0)
+            {
+                rigidbodyEnemy.velocity = transform.forward * speed;
+                animatorEnemy.SetBool("Walk", true);
+            }
+        }
+        else if (Vector3.Distance(transform.position, target.position) < attackingDistance)
+        {
+            rigidbodyEnemy.velocity = Vector3.zero;
+            animatorEnemy.SetBool("Walk", false);
+            isFollowingTarget = false;
+            isAttackingTarget = true;
         }
     }
 
@@ -44,5 +59,32 @@ public class EnemyControls : MonoBehaviour
     private void FixedUpdate()
     {
         FollowTarget();
+    }
+
+    void Update()
+    {
+        Attack();
+    }
+
+    void Attack()
+    {
+        if (!isAttackingTarget)
+        {
+            return;
+        }
+
+        currentAttackingTime += Time.deltaTime;
+        
+        if (currentAttackingTime > maxAttackingTime)
+        {
+            currentAttackingTime = 0f;
+            animatorEnemy.SetTrigger("Attack1");
+        }
+
+        if(Vector3.Distance(transform.position, target.position) > attackingDistance + chasingplayer)
+        {
+            isAttackingTarget = false;
+            isFollowingTarget = true;
+        }
     }
 }
