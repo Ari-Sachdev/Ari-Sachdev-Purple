@@ -8,7 +8,7 @@ public class EnemyControls : MonoBehaviour
     public float attackingDistance = 1;
     public Vector3 direction;
 
-    private Animator animatorEnemy;
+    public Animator animatorEnemy;
     private Rigidbody rigidbodyEnemy;
     private Transform target;
     public bool isFollowingTarget;
@@ -21,6 +21,7 @@ public class EnemyControls : MonoBehaviour
     {
         isFollowingTarget = true;
         currentAttackingTime = maxAttackingTime;
+        animatorEnemy = GetComponentInChildren<Animator>();
         rigidbodyEnemy = GetComponent<Rigidbody>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
 
@@ -30,11 +31,13 @@ public class EnemyControls : MonoBehaviour
     {
         if (!isFollowingTarget)
         {
+            rigidbodyEnemy.isKinematic = true;
             return;
         }
 
         if (Vector3.Distance(transform.position, target.position) >= attackingDistance)
         {
+            rigidbodyEnemy.isKinematic = false;
             direction = target.position - transform.position;
             direction.y = 0;
 
@@ -48,6 +51,7 @@ public class EnemyControls : MonoBehaviour
         }
         else if (Vector3.Distance(transform.position, target.position) < attackingDistance)
         {
+            rigidbodyEnemy.isKinematic = false;
             rigidbodyEnemy.velocity = Vector3.zero;
             animatorEnemy.SetBool("Walk", false);
             isFollowingTarget = false;
@@ -77,8 +81,8 @@ public class EnemyControls : MonoBehaviour
         
         if (currentAttackingTime > maxAttackingTime)
         {
+            EnemyAttack(Random.Range(1, 6));    
             currentAttackingTime = 0f;
-            animatorEnemy.SetTrigger("Attack1");
         }
 
         if(Vector3.Distance(transform.position, target.position) > attackingDistance + chasingplayer)
@@ -86,5 +90,37 @@ public class EnemyControls : MonoBehaviour
             isAttackingTarget = false;
             isFollowingTarget = true;
         }
+    }
+
+    public void EnemyAttack(int attack)
+    {
+        if(attack == 1)
+        {
+            animatorEnemy.SetTrigger("Attack1");
+        }
+
+        if (attack == 2)
+        {
+            animatorEnemy.SetTrigger("Attack2");
+        }
+        if (attack == 3)
+        {
+            animatorEnemy.SetTrigger("Attack3");
+        }
+
+        if (attack == 4)
+        {
+            animatorEnemy.SetTrigger("Attack4");
+        }
+
+        if (attack == 5)
+        {
+            animatorEnemy.SetTrigger("Attack5");
+        }
+        if (attack == 6)
+        {
+            animatorEnemy.SetTrigger("Attack6");
+        }
+
     }
 }

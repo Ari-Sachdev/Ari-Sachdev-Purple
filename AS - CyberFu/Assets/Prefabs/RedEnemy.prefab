@@ -1381,11 +1381,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d2594ee20bbf3041aae829207d1f8f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
-  attackingDistance: 1
+  speed: 1
+  attackingDistance: 0.7
   direction: {x: 0, y: 0, z: 0}
+  animatorEnemy: {fileID: 0}
   isFollowingTarget: 0
   isAttackingTarget: 0
+  chasingplayer: 0.01
   currentAttackingTime: 2
   maxAttackingTime: 2
 --- !u!1 &3537918723572985119
